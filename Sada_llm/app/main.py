@@ -14,7 +14,7 @@ from app.tts_service import text_to_speech
 # إعدادات Gemini
 # ============================================================
 
-GEMINI_API_KEY = "AIzaSyDFmgYS9C_u1pHBcEtuJXgBoqD9PoRsGWk"
+GEMINI_API_KEY = "__"
 
 genai.configure(api_key=GEMINI_API_KEY)
 
