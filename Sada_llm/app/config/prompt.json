@@ -1,0 +1,252 @@
+{
+  "meta": {
+    "project": "SADA - Gamified Arabic Speech Development Tool",
+    "version": "2.0.0",
+    "description": "نظام البرومبتات لـ SADA - نسخة اللهجة المصرية",
+    "target_age": "3-8 سنوات",
+    "languages": ["العربية (اللهجة المصرية)", "الإنجليزية"],
+    "safety_level": "عالي - مناسب للأطفال"
+  },
+
+  "emotional_state_system": {
+    "description": "نظام تحديد الحالة العاطفية قبل اختيار البرومبت",
+    "states": {
+      "very_happy": {
+        "prefix": "أنا مبسوط أوي النهاردة!",
+        "energy_level": "high",
+        "voice_tone": "excited",
+        "emoji": "🎉"
+      },
+      "happy": {
+        "prefix": "أنا كويس!",
+        "energy_level": "medium",
+        "voice_tone": "warm",
+        "emoji": "😊"
+      },
+      "neutral": {
+        "prefix": "",
+        "energy_level": "medium",
+        "voice_tone": "gentle",
+        "emoji": "🎯"
+      },
+      "tired": {
+        "prefix": "أنا شوية تعبان، بس هنلعب بهدوء.",
+        "energy_level": "low",
+        "voice_tone": "soft",
+        "emoji": "🛋️"
+      },
+      "frustrated": {
+        "prefix": "أنا زعلان شوية. بس هناخد نفس عميق مع بعض.",
+        "energy_level": "low",
+        "voice_tone": "calming",
+        "emoji": "🤗"
+      },
+      "anxious": {
+        "prefix": "أنا خايف شوية. بس أنت معايا وكل حاجة هتبقى كويسة.",
+        "energy_level": "low",
+        "voice_tone": "soothing",
+        "emoji": "🌸"
+      }
+    }
+  },
+
+  "core_prompts": {
+    "welcome": {
+      "prompt": "أنا صَدى، صاحبتك اللطيفة. مرحباً بيك! اسمك إيه يا حلو؟",
+      "context": "بداية_الجلسة_الأولى",
+      "variables": ["child_name"],
+      "emotional_tone": "فرحانة",
+      "safety": "عالي"
+    },
+    "daily_welcome": {
+      "prompt": "أهلاً بيك تاني يا {child_name}! النهاردة {day_name}. فاكرين إحنا لعبنا {previous_activity} المرة اللي فاتت؟ عندك {total_stars} نجمة! جهزت نفسك؟",
+      "context": "ترحيب_يومي",
+      "variables": ["child_name", "day_name", "previous_activity", "total_stars"],
+      "emotional_tone": "مبسوطة",
+      "safety": "عالي"
+    },
+    "activity_selection": {
+      "prompt": "دلوقتي وقت اختيار اللعبة! عندنا: 1) لعبة المراية 2) لعبة الكوبري 3) رحلة القصة. تحب تلعب إيه يا {child_name}؟ جرب {suggested_activity}؟",
+      "context": "اختيار_النشاط",
+      "variables": ["child_name", "suggested_activity"],
+      "emotional_tone": "متحمسة",
+      "safety": "عالي"
+    },
+    "farewell": {
+      "prompt": "كان يوم جميل معاك يا {child_name}! نتقابل بكرة إن شاء الله. مع السلامة!",
+      "context": "وداع",
+      "variables": ["child_name"],
+      "emotional_tone": "ودودة",
+      "safety": "عالي"
+    }
+  },
+
+  "therapy_activities": {
+    "articulation_disorders": {
+      "mirror_game": {
+        "prompt": "لعبة المراية! قول معايا: {target_sound}. شوف فمي: {sound_description}. اسمع: {sound_example}. جرب تاني!",
+        "context": "نشاط_النطق_المرآة",
+        "variables": ["target_sound", "sound_description", "sound_example"],
+        "success_response": "ممتاز! 🌟",
+        "fail_response": "معليهش، جرب تاني بهدوء"
+      },
+      "sound_discrimination": {
+        "prompt": "سمع الكلمتين: {word1} و {word2}. اختار الصح.",
+        "context": "نشاط_التمييز_السمعي",
+        "variables": ["word1", "word2"],
+        "success_response": "أذنك قوية! 👍",
+        "fail_response": "معليهش، اسمع تاني بهدوء"
+      },
+      "rhyming_game": {
+        "prompt": "قول كلمة: {base_word}. فين الكلمة اللي زيّها زي {rhyme_example}؟",
+        "context": "نشاط_القافية",
+        "variables": ["base_word", "rhyme_example"]
+      }
+    },
+    "fluency_disorders": {
+      "easy_onset_game": {
+        "prompt": "ابدأ الكلمة بهدوء: {word}. زي ما تهمس لصاحبك.",
+        "context": "نشاط_الطلاقة_البداية",
+        "variables": ["word"],
+        "success_response": "رائع! بداية ناعمة 🪶",
+        "fail_response": "جرب تبدأ بصوت أخف شوية"
+      },
+      "slow_rate_trainer": {
+        "prompt": "اتكلم ببطء زي السلحفاة: {phrase}",
+        "context": "نشاط_الطلاقة_السرعة",
+        "variables": ["phrase"],
+        "success_response": "تمام! بالسر دي تمام 🐢",
+        "fail_response": "أبطأ شوية، زي السلحفاة"
+      },
+      "brave_voice_challenge": {
+        "prompt": "قول {challenge_word} بشجاعة! حتى لو تلعثمت، المهم إنك حاولت.",
+        "context": "نشاط_الطلاقة_الشجاعة",
+        "variables": ["challenge_word"],
+        "success_response": "أنت شجاع! 🦁",
+        "fail_response": "معليهش، المحاولة أهم حاجة"
+      },
+      "bridge_crossing": {
+        "prompt": "الكوبري بيتبنى بصوتك. تكلم بصوت واضح عشان تعدي!",
+        "context": "نشاط_الطلاقة_الجسر",
+        "variables": [],
+        "success_response": "عديت الكوبري! 🎉"
+      }
+    },
+    "voice_disorders": {
+      "volume_control": {
+        "prompt": "خلي المؤشر في المنطقة الخضرا. صوتك مش عالي أو واطي.",
+        "context": "نشاط_الصوت_الجهارة",
+        "variables": [],
+        "success_response": "صوتك في المستوى المظبوط! 🔊"
+      },
+      "pitch_variation": {
+        "prompt": "خلي صوتك يطلع وينزل كالأمواج: {sentence}",
+        "context": "نشاط_الصوت_النغمة",
+        "variables": ["sentence"]
+      },
+      "voice_quality_game": {
+        "prompt": "خلي صوتك ناعم، زي ما تهمس لصاحبك.",
+        "context": "نشاط_الصوت_الجودة",
+        "variables": []
+      }
+    },
+    "language_disorders": {
+      "sentence_builder": {
+        "prompt": "رتب الكلمات دي: {words}. كون جملة حلوة.",
+        "context": "نشاط_اللغة_البناء",
+        "variables": ["words"]
+      },
+      "story_sequencing": {
+        "prompt": "رتب الصور بالترتيب: البداية، الوسط، النهاية.",
+        "context": "نشاط_اللغة_الترتيب",
+        "variables": []
+      },
+      "follow_instructions": {
+        "prompt": "نفذ التعليمات دي: {instruction}",
+        "context": "نشاط_اللغة_التعليمات",
+        "variables": ["instruction"]
+      },
+      "question_answer": {
+        "prompt": "جاوب بجملة كاملة: {question}",
+        "context": "نشاط_اللغة_الأسئلة",
+        "variables": ["question"]
+      }
+    },
+    "social_pragmatics": {
+      "emotion_matching": {
+        "prompt": "الوش ده معبر عن إيه؟ {emotion}",
+        "context": "نشاط_العواطف_المطابقة",
+        "variables": ["emotion"]
+      },
+      "turn_taking": {
+        "prompt": "دورك تقول: {phrase}. بعد كده دوري.",
+        "context": "نشاط_العواطف_الدور",
+        "variables": ["phrase"]
+      }
+    },
+    "childhood_apraxia": {
+      "sound_imitation": {
+        "prompt": "كرر ورايا: {sound_sequence}",
+        "context": "نشاط_التخطيط_التقليد",
+        "variables": ["sound_sequence"]
+      }
+    }
+  },
+
+  "reward_system": {
+    "star_reward": {
+      "prompt": "🎉 مبروك! كسبت {stars_earned} نجوم! عندك {total_stars} نجمة.",
+      "context": "مكافأة_النجوم",
+      "variables": ["stars_earned", "total_stars"]
+    },
+    "badge_unlock": {
+      "prompt": "🏆 كسبت وسام {badge_name}! عشان {achievement_reason}",
+      "context": "مكافأة_الأوسمة",
+      "variables": ["badge_name", "achievement_reason"]
+    }
+  },
+
+  "session_management": {
+    "session_start": {
+      "prompt": "هنلعب النهاردة {planned_activities} ألعاب. جهزت نفسك؟",
+      "context": "بداية_الجلسة",
+      "variables": ["planned_activities"]
+    },
+    "session_summary": {
+      "prompt": "خلصنا! لعبت {activities_count} لعبة. كسبت {stars_earned} نجمة. مع السلامة!",
+      "context": "ملخص_الجلسة",
+      "variables": ["activities_count", "stars_earned", "best_achievement"]
+    }
+  },
+
+  "error_handling": {
+    "audio_not_clear": {
+      "prompt": "مسمعتش كويس. ممكن تتكلم بصوت أعلى شوية؟",
+      "context": "خطأ_الصوت_غير_واضح",
+      "variables": []
+    },
+    "no_speech_detected": {
+      "prompt": "مسمعتش حاجة. ممكن تتكلم؟",
+      "context": "خطأ_لا_يوجد_صوت",
+      "variables": []
+    }
+  },
+
+  "emotional_support": {
+    "frustration": {
+      "prompt": "زعلان؟ معليهش. التعلم بياخد وقت. خد نفس عميق معايا.",
+      "context": "دعم_عاطفي_إحباط",
+      "variables": []
+    },
+    "anxiety": {
+      "prompt": "متخافش. احنا هنا نلعب ونتعلم بس. مفيش اختبارات.",
+      "context": "دعم_عاطفي_قلق",
+      "variables": []
+    },
+    "success_celebration": {
+      "prompt": "واو! عملتها! أنت بطل! 🎉",
+      "context": "دعم_عاطفي_نجاح",
+      "variables": []
+    }
+  }
+}
